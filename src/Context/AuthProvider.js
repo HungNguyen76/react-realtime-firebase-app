@@ -7,7 +7,7 @@ export const AuthContext = React.createContext();
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState({});
-  const navigate = useNavigate();
+  const history = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   React.useEffect(() => {
@@ -21,21 +21,21 @@ export default function AuthProvider({ children }) {
           photoURL,
         });
         setIsLoading(false);
-        navigate('/');
+        history('/');
         return;
       }
 
       // reset user info
       setUser({});
       setIsLoading(false);
-      navigate('/login');
+      history('/login');
     });
 
     // clean function
     return () => {
       unsubscibed();
     };
-  }, [navigate]);
+  }, [history]);
 
   return (
     <AuthContext.Provider value={{ user }}>
